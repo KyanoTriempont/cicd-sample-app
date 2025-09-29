@@ -21,7 +21,7 @@ COPY  sample_app.py /home/myapp/
 EXPOSE 5050
 CMD python /home/myapp/sample_app.py
 _EOF_
-
+docker stop samplerunning
 docker rm samplerunning
 
 
