@@ -1,6 +1,9 @@
 #!/bin/bash
+
+
 set -euo pipefail
 
+rm -r tempdir
 mkdir tempdir
 mkdir tempdir/templates
 mkdir tempdir/static
@@ -18,6 +21,9 @@ COPY  sample_app.py /home/myapp/
 EXPOSE 5050
 CMD python /home/myapp/sample_app.py
 _EOF_
+
+docker rm samplerunning
+
 
 cd tempdir || exit
 docker build -t sampleapp .
