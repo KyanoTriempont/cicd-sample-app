@@ -21,9 +21,16 @@ COPY  sample_app.py /home/myapp/
 EXPOSE 5050
 CMD python /home/myapp/sample_app.py
 _EOF_
-docker stop samplerunning
-docker rm samplerunning
-
+if [ "$(docker ps -q -f name=samplerunning)" ]; then
+  echo "Container 'samplerunning' is running -> stoppen en verwijderen..."
+  docker stop samplerunning
+  docker rm samplerunning
+elif [ "$(docker ps -aq -f name=samplerunning)" ]; then
+  echo "Container 'samplerunning' bestaat maar draait niet -> verwijderen..."
+  docker rm samplerunning
+else
+  echo "Geen container met de naam 'samplerunning' gevonden."
+fi
 
 cd tempdir || exit
 docker build -t sampleapp .
